@@ -6,7 +6,8 @@ Rails.application.routes.draw do
       resources :reviews, only: [:index, :create, :update, :destroy]
       resources :ratings, only: [:create, :update]
       
-      post "login", to: "authentication#login"
+      post "/login", to: "authentication#login"
+      # post "/signup", to: "users#create"
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
