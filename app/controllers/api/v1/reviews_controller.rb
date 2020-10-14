@@ -1,8 +1,21 @@
 class Api::V1::ReviewsController < ApplicationController
+
+  before_action :logged_in?, only: [:create]
+
   def index
+    reviews = Review.all
+    render json: reviews
   end
 
   def create
+      review = Review.new(review_params)
+
+      if !review.valid?
+        render json: {error: "Failed to create a review"}, status: :not_acceptable
+      else
+        review.save
+        render json: {review: review}, status: :created
+      end
   end
 
   def update
@@ -10,4 +23,11 @@ class Api::V1::ReviewsController < ApplicationController
 
   def destroy
   end
+
+  private
+
+  def review_params
+    params.permit(:user_id, :movie_id, :content, :upvotes, :downvotes)
+  end
+
 end
