@@ -20,7 +20,7 @@ def get_movies
     movie_hash = []
     i = 500
     while i < 514 do
-        movie = RestClient.get("https://api.themoviedb.org/3/movie/#{i}?api_key=364eaa630e9d39baf69b5fdfc41fffc3")
+        movie = RestClient.get("https://api.themoviedb.org/3/movie/#{i}?api_key=364eaa630e9d39baf69b5fdfc41fffc3&append_to_response=images")
         movie_hash.push(JSON.parse(movie))
         i = i + 1
     end

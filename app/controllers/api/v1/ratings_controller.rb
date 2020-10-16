@@ -1,12 +1,16 @@
 class Api::V1::RatingsController < ApplicationController
 
-  before_action :logged_in?, only: [:create]
+  before_action :authorized, only: [:create]
   
   def index
   end
 
   def create
     rating = Rating.new(rating_params)
+    user = User.find_by(id: params[:id])
+    user.reviews << review
+    movie = Movie.find_by(id: params[:id])
+    movie.reviews << review
 
     if !rating.valid?
       render json: {error: "Failed to create a rating"}, status: :not_acceptable

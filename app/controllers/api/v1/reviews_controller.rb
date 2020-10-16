@@ -1,6 +1,6 @@
 class Api::V1::ReviewsController < ApplicationController
 
-  before_action :logged_in?, only: [:create]
+  skip_before_action :authorized, only: [:create]
 
   def index
     reviews = Review.all
@@ -9,7 +9,10 @@ class Api::V1::ReviewsController < ApplicationController
 
   def create
       review = Review.new(review_params)
-
+      user = User.find_by(id: params[:id])
+      user.reviews << review
+      movie = Movie.find_by(id: params[:id])
+      movie.reviews << review
       if !review.valid?
         render json: {error: "Failed to create a review"}, status: :not_acceptable
       else
