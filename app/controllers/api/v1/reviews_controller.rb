@@ -5,8 +5,8 @@ class Api::V1::ReviewsController < ApplicationController
   def index
     movie = Movie.find_by(id: params[:movie_id])
     @reviews = movie.reviews
-    user = User.find_by(id: params[:user_id])
-    user_reviews = user.reviews
+    # user = User.find_by(id: params[:user_id])
+    # user_reviews = user.reviews
     render json: @reviews 
   end
 
@@ -35,6 +35,7 @@ class Api::V1::ReviewsController < ApplicationController
   private
 
   def review_params
+    # byebug
     params.permit(:user_id, :movie_id, :content, :upvotes, :downvotes)
   end
 
