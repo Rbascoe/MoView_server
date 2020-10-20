@@ -9,7 +9,9 @@ class Api::V1::MoviesController < ApplicationController
 
   def show
     movie = Movie.find_by(id: params[:id])
-    render json: movie, include: [:reviews, :rating]
+    render json: movie, include: [:reviews, :ratings]
   end
+
+
 
 end

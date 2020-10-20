@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :create]
-      resources :movies, only: [:index]
-      resources :reviews, only: [:index, :create, :update, :destroy]
+      resources :users do 
+        resources :reviews
+      end
+      resources :movies do  
+        resources :reviews
+      end
+
+    
       resources :ratings, only: [:create, :update]
       
       post "/login", to: "authentication#login"
-      # post "/signup", to: "users#create"
+  
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
