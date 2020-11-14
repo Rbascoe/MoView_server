@@ -1,6 +1,6 @@
 class Api::V1::ReviewsController < ApplicationController
 
-  skip_before_action :authorized, only: [:index, :create]
+  skip_before_action :authorized, only: [:index, :create, :destroy]
 
   def index
     movie = Movie.find_by(id: params[:movie_id])
@@ -27,9 +27,17 @@ class Api::V1::ReviewsController < ApplicationController
   end
 
   def update
+    review = Review.find_by(id: params[:id])
+    review.update(review_params)
+    render json: review
   end
 
   def destroy
+    byebug
+    # movie = Movie.find_by(id: params["movie_id"])
+    review = Review.find_by(id: params[:id])
+    review.destroy
+    render json: "Review Deleted"
   end
 
   private
